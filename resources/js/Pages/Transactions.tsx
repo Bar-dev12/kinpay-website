@@ -10,6 +10,8 @@ import {
     Download,
 } from 'lucide-react';
 import { FaGooglePlay, FaApple } from 'react-icons/fa';
+import { COMPANY } from '@/config/company';
+import Footer from '@/Components/Footer';
 
 const transactions = [
     {
@@ -18,7 +20,7 @@ const transactions = [
         icon: CreditCard,
         image: '/images/transactions/paiement-kinpay.png',
         description:
-            'Réglez vos factures, achats et services directement depuis votre portefeuille KinPay.',
+            `Réglez vos factures, achats et services directement depuis votre portefeuille ${COMPANY.name}.`,
         benefits: [
             'Paiement instantané',
             'Historique complet',
@@ -32,7 +34,7 @@ const transactions = [
         icon: ArrowRightLeft,
         image: '/images/transactions/transfert-kinpay.png',
         description:
-            "Envoyez et recevez de l'argent entre utilisateurs KinPay en quelques secondes.",
+            `Envoyez et recevez de l'argent entre utilisateurs ${COMPANY.name} en quelques secondes.`,
         benefits: [
             'Transfert instantané',
             'Notifications en temps réel',
@@ -74,7 +76,7 @@ const transactions = [
         icon: Globe,
         image: '/images/transactions/Alibaba&AliExpress2.png',
         description:
-            'Payez vos commandes Alibaba et AliExpress directement depuis KinPay.',
+            `Payez vos commandes Alibaba et AliExpress directement depuis ${COMPANY.name}.`,
         benefits: [
             'Paiement sécurisé',
             'Commandes internationales',
@@ -141,7 +143,7 @@ export default function Transactions() {
                 <div className="mx-auto max-w-[1280px] px-4 md:px-6 text-center">
 
                     {/* <span className="inline-flex rounded-full bg-[#0646D8]/10 px-4 py-2 text-sm font-medium text-[#0646D8]">
-                        Transactions KinPay
+                        Transactions {COMPANY.name}
                     </span> */}
 
                     <h1 className="mt-6 text-4xl font-bold text-[#071A4D] md:text-6xl">
@@ -154,7 +156,7 @@ export default function Transactions() {
                     <p className="mx-auto mt-6 max-w-3xl text-lg text-[#667085]">
                         Transférez, payez, recevez, achetez en ligne et
                         accédez à des services financiers internationaux
-                        depuis KinPay.
+                        depuis {COMPANY.name}.
                     </p>
 
                 </div>
@@ -260,7 +262,7 @@ export default function Transactions() {
                         </h2>
 
                         <p className="mx-auto mt-4 max-w-2xl text-white/80">
-                            Téléchargez KinPay aujourd'hui et gérez votre argent partout.
+                            Téléchargez {COMPANY.name} aujourd'hui et gérez votre argent partout.
                         </p>
 
                         <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -287,6 +289,9 @@ export default function Transactions() {
 
                 </div>
             </section>
+
+            {/* Footer */}
+            <Footer />
 
         </PublicLayout>
     );

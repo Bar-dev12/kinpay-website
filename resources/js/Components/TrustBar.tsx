@@ -1,6 +1,8 @@
 import { ShieldCheck, Lock } from 'lucide-react';
 import { FaGooglePlay, FaApple } from 'react-icons/fa';
 import { FaGooglePlay as GooglePlayIcon, FaApple as AppleIcon } from 'react-icons/fa';
+import { APP_LINKS } from '@/config/app-links';
+import { COMPANY } from '@/config/company';
 
 export default function TrustBar() {
     return (
@@ -21,7 +23,7 @@ export default function TrustBar() {
                             </h3>
 
                             <p className="text-sm text-white/80">
-                                KinPay, votre solution financière de confiance.
+                                {COMPANY.name}, votre solution financière de confiance.
                             </p>
                         </div>
                     </div>
@@ -56,16 +58,20 @@ export default function TrustBar() {
                         <div className="flex gap-2">
 
                             <a
-                                href="#"
+                                href={APP_LINKS.googlePlay}
                                 className="flex items-center gap-2 rounded-lg bg-black px-3 py-2 text-sm transition hover:scale-[1.03]"
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <GooglePlayIcon size={16} />
                                 Google Play
                             </a>
 
                             <a
-                                href="#"
+                                href={APP_LINKS.appStore}
                                 className="flex items-center gap-2 rounded-lg bg-black px-3 py-2 text-sm transition hover:scale-[1.03]"
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <AppleIcon size={16} />
                                 App Store

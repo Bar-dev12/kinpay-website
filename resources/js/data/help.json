@@ -1,0 +1,214 @@
+{
+    "categories": [
+        {
+            "id": "account",
+            "title": "Compte {appName}",
+            "description": "Création, connexion et gestion de votre compte.",
+            "icon": "UserRound"
+        },
+        {
+            "id": "payments",
+            "title": "Paiements",
+            "description": "Effectuer et gérer vos paiements.",
+            "icon": "CreditCard"
+        },
+        {
+            "id": "transfers",
+            "title": "Transferts",
+            "description": "Envoyer et recevoir de l'argent.",
+            "icon": "ArrowLeftRight"
+        },
+        {
+            "id": "mobile-money",
+            "title": "Mobile Money",
+            "description": "Dépôts et retraits via Mobile Money.",
+            "icon": "Smartphone"
+        },
+        {
+            "id": "visa",
+            "title": "Carte Visa",
+            "description": "Utilisation et gestion de votre carte Visa virtuelle.",
+            "icon": "WalletCards"
+        },
+        {
+            "id": "esim",
+            "title": "E-SIM",
+            "description": "Acheter, installer et utiliser une E-SIM.",
+            "icon": "Globe2"
+        },
+        {
+            "id": "security",
+            "title": "Sécurité",
+            "description": "Protéger votre compte et vos transactions.",
+            "icon": "ShieldCheck"
+        },
+        {
+            "id": "technical",
+            "title": "Problèmes techniques",
+            "description": "Solutions aux problèmes les plus fréquents.",
+            "icon": "CircleHelp"
+        }
+    ],
+    "articles": [
+        {
+            "id": "create-account",
+            "category": "account",
+            "title": "Comment créer un compte {appName} ?",
+            "description": "Découvrez les étapes nécessaires pour créer votre compte {appName}.",
+            "keywords": [
+                "compte",
+                "créer",
+                "inscription",
+                "inscrire",
+                "nouveau compte"
+            ],
+            "content": "Pour créer un compte {appName}, ouvrez l'application {appName} et suivez les étapes d'inscription indiquées."
+        },
+        {
+            "id": "login-account",
+            "category": "account",
+            "title": "Comment me connecter à mon compte ?",
+            "description": "Découvrez comment accéder à votre compte {appName}.",
+            "keywords": [
+                "connexion",
+                "connecter",
+                "login",
+                "compte",
+                "mot de passe"
+            ],
+            "content": "Ouvrez l'application {appName} puis saisissez vos informations de connexion pour accéder à votre compte."
+        },
+        {
+            "id": "make-payment",
+            "category": "payments",
+            "title": "Comment effectuer un paiement ?",
+            "description": "Apprenez à effectuer un paiement avec {appName}.",
+            "keywords": [
+                "paiement",
+                "payer",
+                "achat",
+                "transaction",
+                "marchand"
+            ],
+            "content": "Sélectionnez le service de paiement souhaité dans l'application {appName} puis suivez les instructions affichées."
+        },
+        {
+            "id": "international-payment",
+            "category": "payments",
+            "title": "Comment effectuer un paiement international ?",
+            "description": "Découvrez les possibilités de paiement international avec {appName}.",
+            "keywords": [
+                "paiement international",
+                "international",
+                "étranger",
+                "achat international",
+                "Alibaba",
+                "AliExpress"
+            ],
+            "content": "{appName} permet d'accéder à différents services de paiement international directement depuis votre compte."
+        },
+        {
+            "id": "make-transfer",
+            "category": "transfers",
+            "title": "Comment effectuer un transfert ?",
+            "description": "Découvrez comment envoyer de l'argent depuis votre compte {appName}.",
+            "keywords": [
+                "transfert",
+                "transférer",
+                "envoyer",
+                "envoyer argent",
+                "argent"
+            ],
+            "content": "Depuis votre compte {appName}, sélectionnez l'option de transfert puis renseignez les informations du bénéficiaire."
+        },
+        {
+            "id": "receive-money",
+            "category": "transfers",
+            "title": "Comment recevoir de l'argent ?",
+            "description": "Découvrez comment recevoir de l'argent sur votre compte {appName}.",
+            "keywords": [
+                "recevoir",
+                "recevoir argent",
+                "transfert",
+                "argent",
+                "bénéficiaire"
+            ],
+            "content": "Vous pouvez recevoir de l'argent sur votre compte {appName} selon les moyens de transfert disponibles."
+        },
+        {
+            "id": "mobile-money",
+            "category": "mobile-money",
+            "title": "Comment utiliser Mobile Money avec {appName} ?",
+            "description": "Découvrez comment utiliser les services Mobile Money avec {appName}.",
+            "keywords": [
+                "mobile money",
+                "M-Pesa",
+                "Orange Money",
+                "Airtel Money",
+                "Afri Money",
+                "dépôt",
+                "retrait"
+            ],
+            "content": "Sélectionnez le service Mobile Money correspondant dans {appName} puis suivez les instructions pour effectuer votre opération."
+        },
+        {
+            "id": "visa-card",
+            "category": "visa",
+            "title": "Comment utiliser ma carte Visa virtuelle ?",
+            "description": "Découvrez comment utiliser votre carte Visa virtuelle pour vos paiements en ligne.",
+            "keywords": [
+                "Visa",
+                "carte",
+                "carte virtuelle",
+                "paiement en ligne",
+                "achat en ligne"
+            ],
+            "content": "Votre carte Visa virtuelle peut être utilisée pour les paiements en ligne auprès des services qui acceptent Visa."
+        },
+        {
+            "id": "buy-esim",
+            "category": "esim",
+            "title": "Comment acheter une E-SIM ?",
+            "description": "Découvrez comment acheter une E-SIM depuis {appName}.",
+            "keywords": [
+                "E-SIM",
+                "eSIM",
+                "SIM",
+                "internet",
+                "forfait",
+                "acheter"
+            ],
+            "content": "Accédez au service E-SIM dans {appName}, choisissez le forfait correspondant à votre destination puis suivez les instructions."
+        },
+        {
+            "id": "secure-account",
+            "category": "security",
+            "title": "Comment sécuriser mon compte {appName} ?",
+            "description": "Découvrez les bonnes pratiques pour protéger votre compte.",
+            "keywords": [
+                "sécurité",
+                "sécuriser",
+                "mot de passe",
+                "compte",
+                "protection",
+                "fraude"
+            ],
+            "content": "Utilisez un mot de passe sécurisé, ne partagez jamais vos informations confidentielles et vérifiez attentivement vos transactions."
+        },
+        {
+            "id": "transaction-problem",
+            "category": "technical",
+            "title": "Que faire en cas de problème avec une transaction ?",
+            "description": "Découvrez les premières étapes à suivre lorsqu'une transaction rencontre un problème.",
+            "keywords": [
+                "problème",
+                "transaction",
+                "échec",
+                "erreur",
+                "paiement",
+                "transfert"
+            ],
+            "content": "Vérifiez d'abord le statut de la transaction dans votre application. Si le problème persiste, contactez le support {appName}."
+        }
+    ]
+}

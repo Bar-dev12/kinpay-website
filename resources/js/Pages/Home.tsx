@@ -12,7 +12,10 @@ import {
 import ServicesSection from '@/Components/home/ServicesSection';
 import StatsSection from '@/Components/StatsSection';
 import WhyChooseSection from '@/Components/home/WhyChooseSection';
-import TrustBar from '@/Components/home/TrustBar';
+import TrustBar from '@/Components/TrustBar';
+import { APP_LINKS } from '@/config/app-links';
+import { COMPANY } from '@/config/company';
+import Footer from '@/Components/Footer';
 
 
 export default function Home() {
@@ -99,7 +102,7 @@ export default function Home() {
 
     const steps = [
         {
-            title: 'Téléchargez KinPay',
+            title: `Téléchargez ${COMPANY.name}`,
             description: "Installez l'application depuis Google Play ou l'App Store.",
             icon: 'download',
         },
@@ -115,7 +118,7 @@ export default function Home() {
         },
         {
             title: 'Effectuez vos transactions',
-            description: 'Transférez, payez et utilisez les services KinPay.',
+            description: `Transférez, payez et utilisez les services ${COMPANY.name}.`,
             icon: 'transact',
         },
     ];
@@ -151,7 +154,7 @@ export default function Home() {
                                 <p
                                     className="mt-2 max-w-[480px] text-[11px] leading-4 text-[#667085] sm:text-[14px] md:mt-3 md:text-[15px] md:leading-6"
                                 >
-                                    KinPay est l'application simple,
+                                    {COMPANY.name} est l'application simple,
                                     sécurisée et fiable pour gérer votre argent
                                     au quotidien.
                                 </p>
@@ -229,7 +232,7 @@ export default function Home() {
                                         >
                                             Téléchargez{' '}
                                             <span className="text-[#0646D8]">
-                                                KinPay
+                                                {COMPANY.name}
                                             </span>{' '}
                                             dès maintenant
                                         </p>
@@ -238,9 +241,10 @@ export default function Home() {
 
                                             {/* Google Play */}
                                             <a
-                                                href="#"
-                                                aria-label="Télécharger KinPay sur Google Play"
+                                                href={APP_LINKS.googlePlay}
+                                                aria-label="Télécharger {COMPANY.name} sur Google Play"
                                                 className="flex h-[25px] w-[115px] items-center gap-2 rounded-[6px] bg-black px-1 text-white transition-transform hover:scale-[1.03] md:h-[46px] md:w-auto md:px-2 "
+                                                target="_blank"
                                             >
                                                 <FaGooglePlay
                                                     className="shrink-0 text-[19px] md:text-[23px]"
@@ -259,9 +263,10 @@ export default function Home() {
 
                                             {/* App Store */}
                                             <a
-                                                href="#"
-                                                aria-label="Télécharger KinPay dans l'App Store"
+                                                href={APP_LINKS.appStore}
+                                                aria-label="Télécharger {COMPANY.name} dans l'App Store"
                                                 className="flex h-[25px] w-[115px] items-center gap-2 rounded-[6px] bg-black px-1 text-white transition-transform hover:scale-[1.03] md:h-[46px] md:w-[150px] md:px-3 "
+                                                target="_blank"
                                             >
                                                 <FaApple
                                                     className="shrink-0 text-[20px] md:text-[24px]"
@@ -290,12 +295,12 @@ export default function Home() {
 
                                 <img
                                     src="/images/hero/phone-mockup.png"
-                                    alt="Application KinPay"
+                                    alt="Application {COMPANY.name}"
                                     className="hidden md:block w-112.5 h-auto md:h-auto"
                                 />
                                 <img
                                     src="/images/hero/phone-hero-2.png"
-                                    alt="Application KinPay"
+                                    alt="Application {COMPANY.name}"
                                     className="md:hidden block w-auto h-60 md:h-auto"
                                 />
 
@@ -320,6 +325,9 @@ export default function Home() {
 
                 {/* Trust Bar */}
                 <TrustBar />
+
+                {/* Footer */}
+                <Footer />
 
             </PublicLayout>
 

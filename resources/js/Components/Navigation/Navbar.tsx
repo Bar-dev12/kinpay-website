@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import { Globe, ChevronDown } from 'lucide-react';
 import { FaGooglePlay, FaApple } from 'react-icons/fa';
+import { COMPANY } from '@/config/company';
 
 const navigation = [
     { label: 'Accueil', href: '/' },
-    { label: 'Services', href: '#services' },
+    { label: 'Services', href: '/services' },
     { label: 'Transactions', href: '/transactions' },
-    { label: 'Aide', href: '/aide' },
+    { label: 'Aide', href: '/help' },
     { label: 'À propos', href: '/a-propos' },
 ];
 
@@ -28,7 +29,7 @@ export default function Navbar() {
     const [languageOpen, setLanguageOpen] = useState(false);
     const languages = [
         { code: 'FR', name: 'Français' },
-        { code: 'EN', name: 'English' },
+        { code: 'EN', name: 'EnglishF' },
         { code: 'LN', name: 'Lingala' },
     ];
 
@@ -43,8 +44,8 @@ export default function Navbar() {
                     aria-label="KinPay - Accueil"
                 >
                     <img
-                        src="/images/brand/kinpay-logo.png"
-                        alt="KinPay"
+                        src={COMPANY.logo.light}
+                        alt={COMPANY.name}
                         className="h-14 w-auto sm:h-14"
                     />
                 </Link>
@@ -136,10 +137,10 @@ export default function Navbar() {
                                 setLanguageOpen(!languageOpen);
                                 setDownloadOpen(false);
                             }}
-                            className="flex h-9 w-16 items-center justify-center gap-1 text-sm font-semibold text-[white]"
+                            className="flex h-9 w-30 items-center justify-center gap-1 text-sm font-semibold text-[white]"
                         >
                             <Globe size={16} />
-                            <span>FR</span>
+                            <span>Compte</span>
                             <ChevronDown size={14} />
                         </button>
 
@@ -147,16 +148,16 @@ export default function Navbar() {
                             <div className="absolute right-0 top-full mt-2 w-40 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg text-[#0646D8]">
 
                                 <button className="block w-full px-4 py-2 text-left hover:bg-gray-50">
-                                    Français
+                                    Se connecter
                                 </button>
 
                                 <button className="block w-full px-4 pb-2 text-left hover:bg-gray-50">
-                                    English
+                                    Créer un compte
                                 </button>
 
-                                <button className="block w-full px-4 pb-2 text-left hover:bg-gray-50">
+                                {/* <button className="block w-full px-4 pb-2 text-left hover:bg-gray-50">
                                     Lingala
-                                </button>
+                                </button> */}
 
                             </div>
                         )}

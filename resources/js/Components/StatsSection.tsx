@@ -24,7 +24,7 @@ export default function StatsSection({ stats }: StatsSectionProps) {
 
                 <div className="grid grid-cols-4 gap-2 md:gap-4">
                     {stats.map((stat) => (
-                        <div key={stat.id} className="rounded-2xl bg-white p-3 text-center shadow-sm md:p-5">
+                        <div key={stat.id} className="rounded-2xl bg-white p-3 text-center shadow-sm md:p-5 transition-all hover:-translate-y-1 hover:shadow-md">
                             <div className="text-xl font-bold text-[#0646D8] md:text-3xl">
                                 {stat.value}
                             </div>

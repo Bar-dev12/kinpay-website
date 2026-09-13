@@ -1,0 +1,109 @@
+[
+    {
+        "id": "paiement",
+        "title": "Paiement",
+        "description": "{appName} offre des solutions variées de paiement en ligne et hors ligne, pour vos achats et abonnements.",
+        "image": "/images/services/payment-category.png",
+        "services": [
+            {
+                "name": "Paiement {appName}",
+                "description": "Paiement rapide et sécurisé depuis votre portefeuille{appName}.",
+                "image": "/images/services/payment-{appName}.png"
+            },
+            {
+                "name": "Carte Visa Virtuelle",
+                "description": "Payez vos abonnements et achats en ligne partout dans le monde.",
+                "image": "/images/services/visa_blue.jpg"
+            },
+            {
+                "name": "Alibaba",
+                "description": "Réglez vos commandes Alibaba directement depuis {appName}.",
+                "image": "/images/services/alibaba-logo.jpg"
+            },
+            {
+                "name": "AliExpress",
+                "description": "Achetez vos produits en ligne et payez avec {appName}.",
+                "image": "/images/services/Aliexpress.png"
+            }
+        ]
+    },
+    {
+        "id": "transfert",
+        "title": "Services de Transfert d'Argent",
+        "description": "Envoyez et recevez de l'argent localement et à l'international.",
+        "image": "/images/services/transfer-category.png",
+        "services": [
+            {
+                "name": "Transfert {appName}",
+                "description": "Envoyez de l'argent instantanément entre utilisateurs {appName}.",
+                "image": "/images/services/transfer-{appName}.png"
+            },
+            {
+                "name": "Western Union",
+                "description": "Recevez et envoyez de l'argent via Western Union directement depuis l'application.",
+                "image": "/images/services/western-union.png"
+            },
+            {
+                "name": "Ria Money Transfer",
+                "description": "Rester connecté avec vos proches grâce aux services de transfert d'argent Ria depuis votre compte {appName}.",
+                "image": "/images/services/ria.png"
+            }
+        ]
+    },
+    {
+        "id": "mobile-money",
+        "title": "Mobile Money",
+        "description": "Déposez et retirez votre argent via les principaux opérateurs Mobile Money.",
+        "image": "/images/services/mobile-money-category.png",
+        "services": [
+            {
+                "name": "M-Pesa",
+                "description": "Dépôts et retraits via M-Pesa.",
+                "image": "/images/services/mpesa.png"
+            },
+            {
+                "name": "Orange Money",
+                "description": "Transactions sécurisées via Orange Money.",
+                "image": "/images/services/orange-money.png"
+            },
+            {
+                "name": "Airtel Money",
+                "description": "Paiements et transferts via Airtel Money.",
+                "image": "/images/services/airtel-money.png"
+            },
+            {
+                "name": "Afri Money",
+                "description": "Services financiers via Afri Money.",
+                "image": "/images/services/afri-money.png"
+            }
+        ]
+    },
+    {
+        "id": "esim",
+        "title": "E-SIM Internationale",
+        "description": "Accédez à Internet dans plus de 200 pays avec une seule E-SIM.",
+        "image": "/images/services/esim-category.png",
+        "services": [
+            {
+                "name": "Forfaits Locaux",
+                "description": "Internet dans un seul pays.",
+                "image": "/images/services/esim-local.png"
+            },
+            {
+                "name": "Forfaits Régionaux",
+                "description": "Connexion dans plusieurs pays d'une même région.",
+                "image": "/images/services/esim-regional.png"
+            },
+            {
+                "name": "Forfaits Internationaux",
+                "description": "Internet partout dans le monde.",
+                "image": "/images/services/esim-global.png"
+            },
+            {
+                "name": "Activation Instantanée",
+                "description": "Activation rapide depuis l'application.",
+                "image": "/images/services/esim-activation.png"
+            }
+        ]
+    }
+]

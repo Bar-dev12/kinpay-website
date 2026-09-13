@@ -8,6 +8,7 @@ import {
     Wallet,
     ArrowRightLeft,
 } from 'lucide-react';
+import { COMPANY } from '@/config/company';
 
 type Benefit = {
     title: string;
@@ -52,7 +53,7 @@ export default function WhyChooseSection({
                     <div className="mb-3 flex items-center justify-center gap-3">
                         <div className="h-[2px] w-10 bg-[#0646D8]" />
                         <span className="text-lg font-bold text-[#071A4D] md:text-2xl">
-                            Pourquoi KinPay
+                            Pourquoi {COMPANY.name}
                         </span>
                         <div className="h-[2px] w-10 bg-[#0646D8]" />
                     </div>
@@ -70,11 +71,11 @@ export default function WhyChooseSection({
 
                 <div className="grid gap-8 lg:grid-cols-2">
 
-                    {/* Pourquoi choisir KinPay */}
+                    {/* Pourquoi choisir {COMPANY.name} */}
                     <div className="rounded-3xl bg-white p-6 shadow-sm md:p-8">
 
                         <h3 className="mb-6 text-xl font-bold text-[#071A4D]">
-                            Pourquoi choisir KinPay ?
+                            Pourquoi choisir {COMPANY.name} ?
                         </h3>
 
                         <div className="space-y-5">
