@@ -1,47 +1,31 @@
-type Stat = {
-    id: number | string;
-    value: string;
-    label: string;
-    description?: string;
-};
+import type { Stat } from '@/types';
 
-type StatsSectionProps = {
-    stats: Stat[];
-};
+/**
+ * Chiffres clés. Rien n'est rendu sans valeurs fournies par la configuration (config/vitrine.php, clé « stats »), et
+ * chaque chiffre affiche sa source et sa date. Le serveur écarte toute entrée incomplète.
+ */
+export default function StatsSection({ stats, title, sourceTemplate }: { stats: Stat[]; title: string; sourceTemplate: string }) {
+    if (!stats || stats.length === 0) {
+        return null;
+    }
 
-export default function StatsSection({ stats }: StatsSectionProps) {
     return (
-        <section className="bg-[#F7F9FC] py-6 md:py-8">
-            <div className="mx-auto max-w-[1280px] px-4 md:px-6">
-
-                <div className="mb-6 flex items-center justify-center gap-3">
-                    <div className="h-[2px] w-10 bg-[#0646D8]" />
-                    <h2 className="text-lg font-bold text-[#071A4D] md:text-2xl">
-                        Chiffres clés
-                    </h2>
-                    <div className="h-[2px] w-10 bg-[#0646D8]" />
-                </div>
-
-                <div className="grid grid-cols-4 gap-2 md:gap-4">
-                    {stats.map((stat) => (
-                        <div key={stat.id} className="rounded-2xl bg-white p-3 text-center shadow-sm md:p-5 transition-all hover:-translate-y-1 hover:shadow-md">
-                            <div className="text-xl font-bold text-[#0646D8] md:text-3xl">
-                                {stat.value}
-                            </div>
-
-                            <h3 className="mt-1 text-[11px] font-semibold text-[#071A4D] md:text-sm">
-                                {stat.label}
-                            </h3>
-
-                            {stat.description && (
-                                <p className="mt-1 hidden text-[10px] leading-4 text-[#667085] md:block">
-                                    {stat.description}
-                                </p>
-                            )}
-                        </div>
+        <section aria-labelledby="titre-chiffres" className="py-16" data-stats>
+            <div className="wrap">
+                <h2 id="titre-chiffres" className="text-2xl md:text-3xl">
+                    {title}
+                </h2>
+                <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    {stats.map((s) => (
+                        <li key={s.label} className="rounded-2xl border border-line bg-white p-5">
+                            <p className="font-display text-3xl font-semibold text-primary">{s.value}</p>
+                            <p className="mt-1 font-semibold">{s.label}</p>
+                            <p className="mt-2 text-sm text-muted">
+                                {sourceTemplate.replace(':source', s.source).replace(':date', s.date)}
+                            </p>
+                        </li>
                     ))}
-                </div>
-
+                </ul>
             </div>
         </section>
     );

@@ -1,336 +1,196 @@
-import PublicLayout from '@/Layouts/PublicLayout';
-import { Head } from '@inertiajs/react';
-import {
-    ShieldCheck,
-    Zap,
-    Headphones,
-} from 'lucide-react';
-import {
-    FaGooglePlay,
-    FaApple,
-} from 'react-icons/fa';
-import ServicesSection from '@/Components/home/ServicesSection';
+import { Link, usePage } from '@inertiajs/react';
+import { ArrowRight, ShieldCheck } from 'lucide-react';
+import AccountLinks from '@/Components/AccountLinks';
+import Icon from '@/Components/Icon';
+import PhoneIllustration from '@/Components/PhoneIllustration';
+import { BrandsNotice, ServiceCard, StatusBadge, splitServices } from '@/Components/Services';
 import StatsSection from '@/Components/StatsSection';
-import WhyChooseSection from '@/Components/home/WhyChooseSection';
-import TrustBar from '@/Components/TrustBar';
-import { APP_LINKS } from '@/config/app-links';
-import { COMPANY } from '@/config/company';
-import Footer from '@/Components/Footer';
+import StoreLinks from '@/Components/StoreLinks';
+import PublicLayout from '@/Layouts/PublicLayout';
+import type { Service, SharedProps, Stat, Step } from '@/types';
 
+type HomeTexts = {
+    hero: {
+        kicker: string;
+        lead: string;
+        cta_services: string;
+        figure_label: string;
+        caption: string;
+        screen: { balance: string; cdf_amount: string; usd_amount: string; actions: string[]; last: string; last_label: string; last_status: string };
+    };
+    services: { title: string; lead: string; available: string; soon: string; more: string };
+    currencies: { title: string; text: string };
+    steps: { title: string; items: Step[] };
+    control: { title: string; items: (Step & { icon: string })[]; advice: string };
+    cta: { title: string; text: string };
+};
+
+type Props = SharedProps & { t: HomeTexts; services: Service[]; showBrandsNotice: boolean; stats: Stat[] };
+
+/** Fond décoratif (vague) : AVIF puis WebP puis JPEG, trois largeurs, dimensions explicites. */
+function HeroBackground() {
+    const set = (ext: string) => [640, 1024, 1600].map((w) => `/images/fond/vague-${w}.${ext} ${w}w`).join(', ');
+    return (
+        <picture>
+            <source type="image/avif" srcSet={set('avif')} sizes="100vw" />
+            <source type="image/webp" srcSet={set('webp')} sizes="100vw" />
+            <img
+                src="/images/fond/vague-1024.jpg"
+                srcSet={set('jpg')}
+                sizes="100vw"
+                width={1600}
+                height={900}
+                alt=""
+                decoding="async"
+                fetchPriority="low"
+                className="pointer-events-none absolute inset-0 size-full object-cover object-right"
+            />
+        </picture>
+    );
+}
 
 export default function Home() {
-    const services = [
-        {
-            title: ' Paiement',
-            description: 'Payez vos factures, sachats et services en toute sécurité',
-            icon: '/images/services/carte-de-credit.png',
-            color: 'bg-[#0646D8]',
-        },
-        {
-            title: 'Transfert',
-            description: "Envoyez et recevez de l'argent en toute sécurité",
-            icon: '/images/services/transaction.png',
-            color: 'bg-[#0646D8]',
-        },
-        {
-            title: 'Carte Visa',
-            description: 'Payer en ligne en toute sécurité avec votre carte virtuelle',
-            icon: '/images/services/visa.png',
-            color: 'bg-[#0646D8]',
-        },
-        {
-            title: 'Alibaba & AliExpress',
-            description: 'Payer facilement vos commandes Alibaba et AliExpress.',
-            icon: '/images/services/alibaba.svg',
-            color: 'bg-[#F97316]',
-        },
-        {
-            title: 'E-SIM',
-            description: 'Rester connecté partout dans le monde avec nos E-SIM',
-            icon: '/images/services/carte-sim.png',
-            color: 'bg-[#10B981]',
-        },
-        {
-            title: 'Mobile Money',
-            description: 'Recharger et utiliser votre Mobile Money facilement',
-            icon: '/images/services/mobile-money.png',
-            color: 'bg-[#EAB308]',
-        },
-        {
-            title: 'Western Union',
-            description: 'Envoyer et recevoir de l\'argent avec Western Union',
-            icon: '/images/services/western-union.png',
-            color: 'bg-black',
-        },
-        {
-            title: 'Ria',
-            description: 'Transfert d\'argent rapide et fiable avec Ria',
-            icon: '/images/services/ria-logo.png',
-            color: 'bg-[#fff]',
-        },
-    ];
-
-    const stats = [
-        { id: 1, value: '25K+', label: 'Utilisateurs', description: 'Utilisateurs actifs' },
-        { id: 2, value: '1M+', label: 'Transactions', description: 'Transactions réalisées' },
-        { id: 3, value: '99,9%', label: 'Disponibilité', description: 'Service disponible' },
-        { id: 4, value: '24/7', label: 'Assistance', description: 'Support disponible' },
-    ];
-
-    const benefits = [
-        {
-            title: 'Sécurité avancée',
-            description: 'Protection renforcée de vos transactions et de vos données.',
-            icon: 'security',
-        },
-        {
-            title: 'Rapidité',
-            description: 'Envoyez, recevez et payez en quelques secondes.',
-            icon: 'speed',
-        },
-        {
-            title: 'Services internationaux',
-            description: 'Visa virtuelle, E-SIM et services financiers internationaux.',
-            icon: 'global',
-        },
-        {
-            title: 'Particuliers et entreprises',
-            description: 'Une solution adaptée aux particuliers comme aux professionnels.',
-            icon: 'business',
-        },
-    ];
-
-    const steps = [
-        {
-            title: `Téléchargez ${COMPANY.name}`,
-            description: "Installez l'application depuis Google Play ou l'App Store.",
-            icon: 'download',
-        },
-        {
-            title: 'Créez votre compte',
-            description: 'Inscrivez-vous rapidement et sécurisez votre accès.',
-            icon: 'register',
-        },
-        {
-            title: 'Alimentez votre portefeuille',
-            description: 'Ajoutez des fonds via les méthodes disponibles.',
-            icon: 'fund',
-        },
-        {
-            title: 'Effectuez vos transactions',
-            description: `Transférez, payez et utilisez les services ${COMPANY.name}.`,
-            icon: 'transact',
-        },
-    ];
+    const { site, t, services, showBrandsNotice, stats } = usePage<Props>().props;
+    const { available, soon } = splitServices(services);
 
     return (
-        <>
-            <Head title="Accueil" />
-
-            <PublicLayout>
-                {/* HERO */}
-                <section className="relative overflow-hidden bg-[#F5F6F8] rounded-b-[32px]"
-                    style={{backgroundImage: "url('/images/hero/hero-bg-01.png')", backgroundPosition: 'right center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}
-                >
-                    <div className="mx-auto max-w-[1280px] px-2 py-2 md:px-6 md:py-4">
-
-                        <div className="flex items-start space-between">
-
-                            {/* Bloc gauche */}
-                            <div className="w-[55%] pr-2 md:w-1/2 md:pr-6">
-
-                                <h1
-                                    className="text-[20px] font-bold leading-[20px] text-[#071A4D] sm:text-[34px] sm:leading-[38px] md:text-[52px] md:leading-[58px] lg:text-[62px] lg:leading-[56px]"
-                                >
-                                    Votre argent,
-
-                                    <span className="block text-[#0646D8]">
-                                        partout
-                                    </span>
-
-                                    avec vous
-                                </h1>
-
-                                <p
-                                    className="mt-2 max-w-[480px] text-[11px] leading-4 text-[#667085] sm:text-[14px] md:mt-3 md:text-[15px] md:leading-6"
-                                >
-                                    {COMPANY.name} est l'application simple,
-                                    sécurisée et fiable pour gérer votre argent
-                                    au quotidien.
-                                </p>
-
-                                {/* Avantages */}
-                                <div className="mt-2 flex justify-between md:mt-4 md:justify-start md:gap-8">
-
-                                    <div className="text-center md:border-r-3 border-[#dce3f0] pr-0 md:pr-4">
-                                        <div
-                                            className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-[#0646D8] text-white md:h-14 md:w-14 "
-                                        >
-                                            <ShieldCheck size={16} />
-                                        </div>
-
-                                        <div
-                                            className="
-                                                mt-2
-                                                text-[10px]
-                                                font-semibold
-                                                text-[#071A4D]
-                                                md:text-sm
-                                            "
-                                        >
-                                            Sécurisé
-                                            <p className="text-[7px] md:text-[10px] text-[#667085]">
-                                                Protection avancée des vos données
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div className="text-center md:border-r-3 border-[#dce3f0] pr-0 md:pr-4">
-                                        <div
-                                            className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-[#0646D8] text-white md:h-14 md:w-14 "
-                                        >
-                                            <Zap size={16} />
-                                        </div>
-
-                                        <div
-                                            className="mt-2 text-[10px] font-semibold text-[#071A4D]  md:text-sm "
-                                        >
-                                            Rapide
-                                            <p className="text-[7px] md:text-[10px] text-[#667085]">
-                                                Transactions instantanées
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div className="text-center">
-                                        <div
-                                            className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-[#0646D8] text-white md:h-14 md:w-14 "
-                                        >
-                                            <Headphones size={16} />
-                                        </div>
-
-                                        <div
-                                            className="mt-2 text-[10px] font-semibold text-[#071A4D] md:text-sm  "
-                                        >
-                                            Assistance
-                                            <p className="text-[7px] md:text-[10px] text-[#667085]">
-                                                Disponible 24h/24 et 7j/7
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                {/* Téléchargement de l'application */}
-                                <div className="mt-3 md:mt-5">
-
-                                    {/* Téléchargement de l'application */}
-                                    <div className="">
-
-                                        <p
-                                            className="mb-2 text-[11px] font-semibold text-[#071A4D] sm:text-xs md:text-sm "
-                                        >
-                                            Téléchargez{' '}
-                                            <span className="text-[#0646D8]">
-                                                {COMPANY.name}
-                                            </span>{' '}
-                                            dès maintenant
-                                        </p>
-
-                                        <div className="flex items-center gap-2 md:gap-10">
-
-                                            {/* Google Play */}
-                                            <a
-                                                href={APP_LINKS.googlePlay}
-                                                aria-label="Télécharger {COMPANY.name} sur Google Play"
-                                                className="flex h-[25px] w-[115px] items-center gap-2 rounded-[6px] bg-black px-1 text-white transition-transform hover:scale-[1.03] md:h-[46px] md:w-auto md:px-2 "
-                                                target="_blank"
-                                            >
-                                                <FaGooglePlay
-                                                    className="shrink-0 text-[19px] md:text-[23px]"
-                                                />
-
-                                                <div className="flex flex-col leading-none">
-                                                    <span className="text-[7px]  md:text-[7px]">
-                                                        Disponible sur
-                                                    </span>
-
-                                                    <span className="mt-0.5 text-[9px] font-medium md:text-[15px]">
-                                                        Google Play
-                                                    </span>
-                                                </div>
-                                            </a>
-
-                                            {/* App Store */}
-                                            <a
-                                                href={APP_LINKS.appStore}
-                                                aria-label="Télécharger {COMPANY.name} dans l'App Store"
-                                                className="flex h-[25px] w-[115px] items-center gap-2 rounded-[6px] bg-black px-1 text-white transition-transform hover:scale-[1.03] md:h-[46px] md:w-[150px] md:px-3 "
-                                                target="_blank"
-                                            >
-                                                <FaApple
-                                                    className="shrink-0 text-[20px] md:text-[24px]"
-                                                />
-
-                                                <div className="flex flex-col leading-none">
-                                                    <span className="text-[7px] md:text-[7px]">
-                                                        Disponible sur
-                                                    </span>
-
-                                                    <span className="mt-0.5 text-[9px] font-medium md:text-[15px]">
-                                                        App Store
-                                                    </span>
-                                                </div>
-                                            </a>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            {/* Bloc droite */}
-                            <div className="w-[60%] flex justify-center md:w-1/2 mt-4 md:mt-0">
-
-                                <img
-                                    src="/images/hero/phone-mockup.png"
-                                    alt="Application {COMPANY.name}"
-                                    className="hidden md:block w-112.5 h-auto md:h-auto"
-                                />
-                                <img
-                                    src="/images/hero/phone-hero-2.png"
-                                    alt="Application {COMPANY.name}"
-                                    className="md:hidden block w-auto h-60 md:h-auto"
-                                />
-
-                            </div>
-
+        <PublicLayout>
+            {/* En-tête de page */}
+            <section aria-labelledby="titre-accueil" className="relative overflow-hidden bg-surface">
+                <HeroBackground />
+                <div className="wrap relative grid items-center gap-10 py-12 md:grid-cols-[1.2fr_1fr] md:py-20">
+                    <div>
+                        <p className="font-semibold text-primary">{t.hero.kicker}</p>
+                        <h1 id="titre-accueil" className="mt-2 text-4xl md:text-5xl lg:text-6xl">
+                            {site.slogan}
+                        </h1>
+                        <p className="mt-5 max-w-xl text-lg text-muted">{t.hero.lead}</p>
+                        <div className="mt-8 flex flex-wrap gap-3">
+                            <AccountLinks site={site} />
+                            {!site.links.login && !site.links.register && (
+                                <Link href="/services" className="btn btn-primary">
+                                    {t.hero.cta_services}
+                                </Link>
+                            )}
                         </div>
+                        <div className="mt-6">
+                            <StoreLinks site={site} />
+                        </div>
+                    </div>
+                    <PhoneIllustration screen={t.hero.screen} label={t.hero.figure_label} caption={t.hero.caption} />
+                </div>
+            </section>
 
+            {/* Services */}
+            <section aria-labelledby="titre-services" className="py-16">
+                <div className="wrap">
+                    <h2 id="titre-services" className="text-3xl md:text-4xl">
+                        {t.services.title}
+                    </h2>
+                    <p className="mt-3 max-w-2xl text-lg text-muted">{t.services.lead}</p>
+
+                    {available.length > 0 && (
+                        <>
+                            <h3 className="mt-10 text-xl">{t.services.available}</h3>
+                            <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                {available.map((s) => (
+                                    <ServiceCard key={s.id} service={s} headingLevel="h4" />
+                                ))}
+                            </ul>
+                        </>
+                    )}
+
+                    {soon.length > 0 && (
+                        <>
+                            <h3 className="mt-10 text-xl">{t.services.soon}</h3>
+                            <ul className="mt-4 flex flex-wrap gap-2">
+                                {soon.map((s) => (
+                                    <li key={s.id} className="flex items-center gap-2 rounded-full border border-line bg-white py-1 pl-4 pr-1" data-service={s.id}>
+                                        <span className="font-semibold">{s.name}</span>
+                                        <StatusBadge service={s} />
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
+
+                    {showBrandsNotice && <BrandsNotice text={site.ui.brands_notice} />}
+
+                    <Link href="/services" className="btn btn-secondary mt-8">
+                        {t.services.more}
+                        <ArrowRight size={18} aria-hidden="true" />
+                    </Link>
+                </div>
+            </section>
+
+            <StatsSection stats={stats} title={site.ui.stats_title} sourceTemplate={site.ui.stats_source} />
+
+            {/* Devises et premiers pas */}
+            <section aria-labelledby="titre-commencer" className="bg-surface py-16">
+                <div className="wrap grid gap-10 lg:grid-cols-[1fr_1.4fr]">
+                    <div>
+                        <h2 className="text-2xl md:text-3xl">{t.currencies.title}</h2>
+                        <p className="mt-3 text-lg text-muted">{t.currencies.text}</p>
+                    </div>
+                    <div>
+                        <h2 id="titre-commencer" className="text-2xl md:text-3xl">
+                            {t.steps.title}
+                        </h2>
+                        <ol className="mt-6 space-y-5">
+                            {t.steps.items.map((step, i) => (
+                                <li key={step.title} className="flex gap-4">
+                                    <span aria-hidden="true" className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary font-display font-semibold text-white">
+                                        {i + 1}
+                                    </span>
+                                    <div>
+                                        <h3 className="text-lg">{step.title}</h3>
+                                        <p className="mt-1 text-muted">{step.text}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            {/* Contrôle des opérations */}
+            <section aria-labelledby="titre-controle" className="py-16">
+                <div className="wrap">
+                    <h2 id="titre-controle" className="text-3xl md:text-4xl">
+                        {t.control.title}
+                    </h2>
+                    <ul className="mt-8 grid gap-4 md:grid-cols-3">
+                        {t.control.items.map((item) => (
+                            <li key={item.title} className="rounded-2xl border border-line p-5">
+                                <span className="flex size-11 items-center justify-center rounded-xl bg-primary-soft text-primary">
+                                    <Icon name={item.icon} />
+                                </span>
+                                <h3 className="mt-4 text-lg">{item.title}</h3>
+                                <p className="mt-1 text-muted">{item.text}</p>
+                            </li>
+                        ))}
+                    </ul>
+                    <p className="mt-6 flex max-w-3xl gap-3 rounded-2xl bg-soon-soft p-4 text-soon">
+                        <ShieldCheck size={22} className="mt-0.5 shrink-0" aria-hidden="true" />
+                        <span className="font-semibold">{t.control.advice}</span>
+                    </p>
+                </div>
+            </section>
+
+            {/* Appel final : seulement si l'inscription ou la connexion sont configurées */}
+            {(site.links.register || site.links.login) && (
+                <section aria-labelledby="titre-cta" className="pb-16">
+                    <div className="wrap">
+                        <div className="on-dark rounded-3xl bg-primary px-6 py-10 text-white md:px-12">
+                            <h2 id="titre-cta" className="text-2xl md:text-3xl">
+                                {t.cta.title}
+                            </h2>
+                            <p className="mt-2 text-white/90">{t.cta.text}</p>
+                            <AccountLinks site={site} variant="dark" className="mt-6" />
+                        </div>
                     </div>
                 </section>
-
-                {/* Services Section */}
-                <ServicesSection services={services} />
-
-                {/* Stats Section */}
-                <StatsSection stats={stats} />
-
-                {/* Transactions Section */}
-                <WhyChooseSection
-                    benefits={benefits}
-                    steps={steps}
-                />
-
-                {/* Trust Bar */}
-                <TrustBar />
-
-                {/* Footer */}
-                <Footer />
-
-            </PublicLayout>
-
-        </>
+            )}
+        </PublicLayout>
     );
 }

@@ -1,25 +1,28 @@
 import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/react';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import type { ComponentType } from 'react';
 import { createRoot } from 'react-dom/client';
 
-const appName = import.meta.env.VITE_APP_NAME || 'KinPay';
+// Pages chargées dans le même fichier : quatre pages légères, un aller-retour réseau de moins au premier affichage.
+const pages = import.meta.glob<{ default: ComponentType }>('./Pages/*.tsx', { eager: true });
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    // Le titre complet (« Page – KinPay Cash ») est fourni par le serveur.
+    title: (title) => title,
 
-    resolve: (name) =>
-        resolvePageComponent(
-            `./Pages/${name}.tsx`,
-            import.meta.glob('./Pages/**/*.tsx') as Record<string, Promise<any> | (() => Promise<any>)>,
-        ),
+    resolve: (name) => {
+        const page = pages[`./Pages/${name}.tsx`];
+        if (!page) {
+            throw new Error(`Page inconnue : ${name}`);
+        }
+        return page.default;
+    },
 
     setup({ el, App, props }) {
         createRoot(el).render(<App {...props} />);
     },
 
-    progress: {
-        color: '#2563EB',
-    },
+    // Pas de barre de progression : elle injecte une balise <style> que la CSP refuse, et les pages sont légères.
+    progress: false,
 });

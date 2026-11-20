@@ -1,193 +1,143 @@
-import { Link } from '@inertiajs/react';
-import { COMPANY } from '@/config/company';
-import { APP_LINKS } from '@/config/app-links';
-import {
-    FaGooglePlay,
-    FaApple,
-    FaLinkedin,
-    FaInstagram,
-    FaFacebook
-} from 'react-icons/fa';
-// import {
-//     Facebook,
-//     Instagram,
-// } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import Logo from '@/Components/Logo';
+import StoreLinks from '@/Components/StoreLinks';
+import type { SharedProps } from '@/types';
 
+/**
+ * Pied de page. Chaque bloc (compte, contacts, réseaux sociaux, pages légales) n'apparaît que si au moins une valeur
+ * est configurée. Les pages légales sont servies par l'application, avec la mention « provisoire » si elles le sont.
+ */
 export default function Footer() {
+    const { site } = usePage<SharedProps>().props;
+    const ui = site.ui;
+    const { contact } = site;
+    const hasContact = Boolean(contact.email || contact.phone || contact.whatsapp || contact.address);
+    const hasAccount = Boolean(site.links.login || site.links.register);
+
     return (
-        <footer className="bg-[#0646D8] text-white">
-            <div className="mx-auto max-w-[1280px] px-4 pb-16 pt-12 md:px-6">
+        <footer className="on-dark bg-ink text-white">
+            <div className="wrap grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-4">
+                <div className="lg:col-span-1">
+                    <Logo light />
+                    <p className="mt-3 font-semibold">{site.slogan}</p>
+                    <p className="mt-3 text-sm text-white/85">{ui.footer_about}</p>
+                </div>
 
-                <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
+                <div>
+                    <h2 className="text-base">{ui.footer_pages}</h2>
+                    <ul className="mt-3 space-y-1">
+                        {ui.nav.map((item) => (
+                            <li key={item.href}>
+                                <Link href={item.href} className="inline-flex min-h-11 min-w-11 items-center text-white/90 underline-offset-4 hover:underline">
+                                    {item.label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-                    {/* Logo */}
-                    <div className="lg:col-span-2">
-
-                        <img
-                            src={COMPANY.logo.light}
-                            alt={COMPANY.name}
-                            className="h-18"
-                        />
-
-                        <p className="mt-5 max-w-md text-sm leading-7 text-white/70">
-                            {COMPANY.name} simplifie les paiements,
-                            transferts d'argent, Mobile Money,
-                            cartes virtuelles et E-SIM dans une
-                            seule application.
-                        </p>
-
-                    </div>
-
-                    {/* Produits */}
+                {(hasAccount || site.links.googlePlay || site.links.appStore) && (
                     <div>
-
-                        <h3 className="font-semibold">
-                            Produits
-                        </h3>
-
-                        <ul className="mt-5 space-y-3 text-sm text-white/70">
-
-                            <li>
-                                <Link href="/services">
-                                    Paiements
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link href="/services">
-                                    Transferts
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link href="/services">
-                                    Mobile Money
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link href="/services">
-                                    E-SIM
-                                </Link>
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                    {/* Entreprise */}
-                    <div>
-
-                        <h3 className="font-semibold">
-                            Entreprise
-                        </h3>
-
-                        <ul className="mt-5 space-y-3 text-sm text-white/70">
-
-                            <li>
-                                <Link href="/about">
-                                    À propos
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link href="/contact">
-                                    Contact
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link href="/help">
-                                    Centre d'aide
-                                </Link>
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                    {/* Application */}
-                    <div>
-
-                        <h3 className="font-semibold">
-                            Télécharger
-                        </h3>
-
-                        <div className="mt-5 space-y-3">
-
-                            {/* Google Play */}
-                            <a
-                                href={APP_LINKS.googlePlay}
-                                className="flex h-11 min-w-[140px] max-w-[160px] items-center justify-center gap-2 rounded-lg bg-black px-3 text-sm text-white transition hover:scale-[1.03]"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <FaGooglePlay size={16} />
-                                Google Play
-                            </a>
-
-                            {/* App Store */}
-                            <a
-                                href={APP_LINKS.appStore}
-                                className="flex h-11 min-w-[140px] max-w-[160px] items-center justify-center gap-2 rounded-lg bg-black px-3 text-sm text-white transition hover:scale-[1.03]"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <FaApple size={16} />
-                                App Store
-                            </a>
-
+                        {hasAccount && (
+                            <>
+                                <h2 className="text-base">{ui.footer_account}</h2>
+                                <ul className="mt-3 space-y-1">
+                                    {site.links.register && (
+                                        <li>
+                                            <a href={site.links.register} className="inline-flex min-h-11 min-w-11 items-center text-white/90 underline-offset-4 hover:underline">
+                                                {ui.register}
+                                            </a>
+                                        </li>
+                                    )}
+                                    {site.links.login && (
+                                        <li>
+                                            <a href={site.links.login} className="inline-flex min-h-11 min-w-11 items-center text-white/90 underline-offset-4 hover:underline">
+                                                {ui.login}
+                                            </a>
+                                        </li>
+                                    )}
+                                </ul>
+                            </>
+                        )}
+                        <div className="mt-4">
+                            <StoreLinks site={site} light />
                         </div>
-
                     </div>
+                )}
 
-                </div>
+                {(hasContact || site.social.length > 0) && (
+                    <div>
+                        {hasContact && (
+                            <>
+                                <h2 className="text-base">{ui.footer_contact}</h2>
+                                <ul className="mt-3 space-y-1 text-white/90">
+                                    {contact.email && (
+                                        <li>
+                                            <a href={`mailto:${contact.email}`} className="inline-flex min-h-11 items-center break-all underline-offset-4 hover:underline">
+                                                {contact.email}
+                                            </a>
+                                        </li>
+                                    )}
+                                    {contact.phone && (
+                                        <li>
+                                            <a href={`tel:${contact.phone}`} className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">
+                                                {contact.phone}
+                                            </a>
+                                        </li>
+                                    )}
+                                    {contact.whatsapp && (
+                                        <li>
+                                            <a href={contact.whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline-offset-4 hover:underline">
+                                                {ui.contact_whatsapp_action}
+                                                <span className="sr-only"> {ui.new_tab}</span>
+                                            </a>
+                                        </li>
+                                    )}
+                                    {contact.address && <li className="py-2">{contact.address}</li>}
+                                </ul>
+                            </>
+                        )}
+                        {site.social.length > 0 && (
+                            <>
+                                <h2 className="mt-6 text-base">{ui.footer_social}</h2>
+                                <ul className="mt-3 flex flex-wrap gap-x-4">
+                                    {site.social.map((s) => (
+                                        <li key={s.key}>
+                                            <a href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 min-w-11 items-center text-white/90 underline-offset-4 hover:underline">
+                                                {s.label}
+                                                <span className="sr-only"> {ui.new_tab}</span>
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </>
+                        )}
+                    </div>
+                )}
+            </div>
 
-                <div className="my-10 h-px bg-white/10" />
-
-                <div className="flex flex-col gap-4 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
-
+            <div className="border-t border-white/20">
+                <div className="wrap flex flex-col gap-4 py-6 text-sm text-white/85 md:flex-row md:items-start md:justify-between">
                     <p>
-                        © {new Date().getFullYear()} {COMPANY.name}.
-                        Tous droits réservés.
+                        © {new Date().getFullYear()} {site.brand}. {ui.rights}
                     </p>
-
-                    <div className="flex gap-6">
-
-                        <a
-                            href={COMPANY.facebook}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 transition hover:text-white"
-                        >
-                            <FaFacebook size={18} />
-                            <span>Facebook</span>
-                        </a>
-
-                        <a
-                            href={COMPANY.instagram}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 transition hover:text-white"
-                        >
-                            <FaInstagram size={18} />
-                            <span>Instagram</span>
-                        </a>
-
-                        <a
-                            href={COMPANY.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 transition hover:text-white"
-                        >
-                            <FaLinkedin size={18} />
-                            <span>LinkedIn</span>
-                        </a>
-
-                    </div>
-
+                    {site.legal.length > 0 && (
+                        <div>
+                            <h2 className="sr-only">{ui.footer_legal}</h2>
+                            <ul className="flex flex-wrap gap-x-5">
+                                {site.legal.map((l) => (
+                                    <li key={l.key}>
+                                        <a href={l.href} className="inline-flex min-h-11 items-center underline underline-offset-4" data-legal={l.key}>
+                                            {l.label}
+                                            {site.legalProvisional && <span>&nbsp;({ui.provisional})</span>}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                            {site.legalProvisional && <p className="text-white/85">{ui.provisional_note}</p>}
+                        </div>
+                    )}
                 </div>
-
             </div>
         </footer>
     );

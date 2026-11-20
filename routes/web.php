@@ -1,21 +1,19 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\SeoController;
 use App\Http\Controllers\SupportController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-});
+// Pages publiques (adresses inchangées depuis la première version du site).
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/services', [PageController::class, 'services'])->name('services');
+Route::get('/transactions', [PageController::class, 'transactions'])->name('transactions');
+Route::get('/help', [PageController::class, 'help'])->name('help');
 
-// Transactions route
-Route::inertia('/transactions', 'Transactions')->name('transactions');
-
-// Services route
-Route::inertia('/services', 'Services')->name('services');
-
-// Help route
-Route::inertia('/help', 'Help')->name('help');
-
-// Support route
+// Formulaire de support (protégé par le jeton CSRF du groupe « web »).
 Route::post('/support/contact', [SupportController::class, 'store'])->name('support.contact');
+
+// Référencement : robots.txt et sitemap.xml dépendent de l'environnement (noindex hors production).
+Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
+Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');

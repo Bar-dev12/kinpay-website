@@ -1,13 +1,213 @@
 @import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+@source '../views/*.blade.php';
+@source not '../../public/build';
+@source not '../../docs';
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/* Police des titres : Instrument Sans 600 (licence OFL, public/fonts/OFL-instrument-sans.txt), réduite aux caractères du
+   français, auto-hébergée. Le texte courant utilise la police du système : aucun octet à télécharger. */
+@font-face {
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fonts/instrument-sans-600-fr-v1.woff2') format('woff2');
 }
 
-html {
-    scroll-behavior: smooth;
+@theme {
+    --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-display: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+    /* Couleurs : contrastes vérifiés (WCAG 2.2 AA) sur fond blanc et sur --color-surface. */
+    --color-primary: #0646d8;
+    --color-primary-dark: #0538ad;
+    --color-primary-soft: #e8efff;
+    --color-ink: #0b1b44;
+    --color-muted: #475467;
+    --color-surface: #f5f7fb;
+    --color-line: #d9dee8;
+    --color-ok: #0a6b41;
+    --color-ok-soft: #e3f5ec;
+    --color-soon: #7a4100;
+    --color-soon-soft: #fff1dc;
+    --color-danger: #b42318;
+    --color-danger-soft: #fdecea;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        background-color: #ffffff;
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+        line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        line-height: 1.2;
+        text-wrap: balance;
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--color-primary);
+        outline-offset: 3px;
+        border-radius: 6px;
+    }
+
+    .on-dark :focus-visible {
+        outline-color: #ffffff;
+    }
+
+    [id] {
+        scroll-margin-top: 5rem;
+    }
+}
+
+@layer components {
+    .wrap {
+        margin-inline: auto;
+        width: 100%;
+        max-width: 76rem;
+        padding-inline: 1rem;
+    }
+
+    @media (min-width: 640px) {
+        .wrap {
+            padding-inline: 1.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .wrap {
+            padding-inline: 2rem;
+        }
+    }
+
+    /* Boutons et liens-boutons : cible d'au moins 44 px. */
+    .btn {
+        display: inline-flex;
+        min-height: 2.75rem;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border-radius: 0.75rem;
+        padding: 0.625rem 1.25rem;
+        font-weight: 600;
+        line-height: 1.25;
+        text-decoration: none;
+        transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+
+    .btn-primary {
+        background-color: var(--color-primary);
+        color: #ffffff;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--color-primary-dark);
+    }
+
+    .btn-secondary {
+        border: 1px solid var(--color-line);
+        background-color: #ffffff;
+        color: var(--color-ink);
+    }
+
+    .btn-secondary:hover {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .btn-light {
+        background-color: #ffffff;
+        color: var(--color-primary);
+    }
+
+    .btn-light:hover {
+        background-color: var(--color-primary-soft);
+    }
+
+    .btn-outline-light {
+        border: 1px solid rgb(255 255 255 / 0.7);
+        color: #ffffff;
+    }
+
+    .btn-outline-light:hover {
+        background-color: rgb(255 255 255 / 0.12);
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        border-radius: 999px;
+        padding: 0.125rem 0.625rem;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        line-height: 1.5rem;
+        white-space: nowrap;
+    }
+
+    .badge-ok {
+        background-color: var(--color-ok-soft);
+        color: var(--color-ok);
+    }
+
+    .badge-soon {
+        background-color: var(--color-soon-soft);
+        color: var(--color-soon);
+    }
+
+    .field {
+        display: block;
+        width: 100%;
+        min-height: 2.75rem;
+        border: 1px solid #8a94a6;
+        border-radius: 0.75rem;
+        background-color: #ffffff;
+        padding: 0.625rem 0.875rem;
+        color: var(--color-ink);
+    }
+
+    .field[aria-invalid='true'] {
+        border-color: var(--color-danger);
+    }
+
+    /* Champ piège du formulaire de support : hors de l'écran, ignoré par le clavier et les lecteurs d'écran. */
+    .trap {
+        position: absolute;
+        left: -10000px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+
+    .noscript {
+        margin: 2rem auto;
+        max-width: 40rem;
+        padding: 0 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

@@ -2,27 +2,33 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\SupportTicket;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Attachment;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
 
+/**
+ * Courriel envoyé au support (SUPPORT_TO_ADDRESS). Envoi synchrone, jamais en file d'attente : le formulaire doit savoir
+ * si le transport a accepté le message avant d'afficher un succès. « Répondre » écrit directement au visiteur.
+ */
 class SupportMessageMail extends Mailable
 {
-    public array $data;
+    public function __construct(public SupportTicket $ticket) {}
 
-    public function __construct(array $data)
+    public function envelope(): Envelope
     {
-        $this->data = $data;
+        return new Envelope(
+            subject: __('vitrine.support.mail_subject', [
+                'ref' => $this->ticket->reference(),
+                'subject' => str_replace(["\r", "\n"], ' ', $this->ticket->subject),
+            ]),
+            replyTo: [new Address($this->ticket->email, str_replace(["\r", "\n"], ' ', $this->ticket->name))],
+        );
     }
 
-    public function build()
+    public function content(): Content
     {
-        return $this
-            ->subject('[KinPay Support] '.$this->data['subject'])
-            ->view('emails.support-message');
+        return new Content(text: 'emails.support-message');
     }
 }

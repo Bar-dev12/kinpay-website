@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\Vitrine;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -10,26 +11,18 @@ class HandleInertiaRequests extends Middleware
     /**
      * The root template that's loaded on the first page visit.
      *
-     * @see https://inertiajs.com/server-side-setup#root-template
-     *
      * @var string
      */
     protected $rootView = 'app';
 
-    /**
-     * Determines the current asset version.
-     *
-     * @see https://inertiajs.com/asset-versioning
-     */
     public function version(Request $request): ?string
     {
         return parent::version($request);
     }
 
     /**
-     * Define the props that are shared by default.
-     *
-     * @see https://inertiajs.com/shared-data
+     * Données partagées : marque, liens vers l'application, contacts, réseaux et textes communs, tous lus côté serveur
+     * dans config/vitrine.php et lang/fr (aucun build front nécessaire pour les changer).
      *
      * @return array<string, mixed>
      */
@@ -37,7 +30,8 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            //
+            'site' => fn () => Vitrine::shared(),
+            'flash' => fn () => ['supportTicket' => $request->session()->get('supportTicket')],
         ];
     }
 }

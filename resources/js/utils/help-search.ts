@@ -1,44 +1,35 @@
-import type { HelpArticle } from '../types/help';
-
-const normalizeText = (text: string): string => {
-    return text
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '');
+export type HelpArticle = {
+    id: string;
+    category: string;
+    title: string;
+    keywords: string[];
+    content: string;
 };
 
-export const searchHelpArticles = (articles: HelpArticle[], query: string): HelpArticle[] => {
-    const normalizedQuery = normalizeText(query.trim());
+export type HelpCategory = { id: string; title: string; description: string; icon: string };
 
-    if (!normalizedQuery) {
+const normalize = (text: string): string =>
+    text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '');
+
+/** Recherche simple dans la foire aux questions : titre, puis mots-clés, puis réponse. */
+export const searchHelpArticles = (articles: HelpArticle[], query: string): HelpArticle[] => {
+    const q = normalize(query.trim());
+    if (!q) {
         return [];
     }
 
     return articles
         .map((article) => {
-            const title = normalizeText(article.title);
-            const description = normalizeText(article.description);
-            const keywords = article.keywords.map(normalizeText);
-
             let score = 0;
-
-            if (title.includes(normalizedQuery)) {
-                score += 10;
-            }
-
-            if (description.includes(normalizedQuery)) {
-                score += 5;
-            }
-
-            keywords.forEach((keyword) => {
-                if (keyword.includes(normalizedQuery)) {
-                    score += 3;
-                }
-            });
-
+            if (normalize(article.title).includes(q)) score += 10;
+            if (article.keywords.some((k) => normalize(k).includes(q))) score += 5;
+            if (normalize(article.content).includes(q)) score += 2;
             return { article, score };
         })
-        .filter((result) => result.score > 0)
+        .filter((r) => r.score > 0)
         .sort((a, b) => b.score - a.score)
-        .map((result) => result.article);
+        .map((r) => r.article);
 };

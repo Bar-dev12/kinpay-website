@@ -1,24 +1,12 @@
-<h2>Nouvelle demande de support KinPay</h2>
+{{-- Courriel en texte brut (text/plain) : aucun HTML n'est interprété, les champs sont donc repris tels quels. --}}
+{!! __('vitrine.support.mail_title') !!} — {{ $ticket->reference() }}
 
-<p>
-    <strong>Nom :</strong>
-    {{ $data['name'] }}
-</p>
+Nom : {!! $ticket->name !!}
+Adresse électronique : {!! $ticket->email !!}
+Sujet : {!! $ticket->subject !!}
 
-<p>
-    <strong>Email :</strong>
-    {{ $data['email'] }}
-</p>
+Message :
+{!! $ticket->message !!}
 
-<p>
-    <strong>Sujet :</strong>
-    {{ $data['subject'] }}
-</p>
-
-<p>
-    <strong>Message :</strong>
-</p>
-
-<p>
-    {{ $data['message'] }}
-</p>
+--
+Suivi : php artisan support:ticket {{ $ticket->getKey() }}

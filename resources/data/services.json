@@ -1,0 +1,125 @@
+{
+    "_lisez_moi": "Liste officielle des services (document de Patrick). Statuts possibles : disponible, bientot, masque. Ne passez un service à « disponible » que lorsqu'il fonctionne réellement dans l'application (voir README, « Changer le statut d'un service »). Les marques citées (marque: true) apparaissent en texte simple, sans logo.",
+    "services": [
+        {
+            "id": "paiement",
+            "name": "Paiement",
+            "description": "Payer depuis votre solde KinPay Cash, confirmé par votre code PIN.",
+            "icon": "wallet",
+            "status": "disponible",
+            "marque": false
+        },
+        {
+            "id": "transferer",
+            "name": "Transférer",
+            "description": "Envoyer de l'argent : le récapitulatif affiche les frais et le total avant toute validation.",
+            "icon": "send",
+            "status": "disponible",
+            "marque": false
+        },
+        {
+            "id": "carte-visa-virtuelle",
+            "name": "Carte Visa virtuelle",
+            "description": "Une carte virtuelle pour payer en ligne.",
+            "icon": "credit-card",
+            "status": "bientot",
+            "marque": true
+        },
+        {
+            "id": "alibaba-aliexpress",
+            "name": "Paiement Alibaba et AliExpress",
+            "description": "Régler vos commandes passées sur Alibaba et AliExpress.",
+            "icon": "package",
+            "status": "bientot",
+            "marque": true
+        },
+        {
+            "id": "esim",
+            "name": "E-SIM",
+            "description": "Choisir un forfait de données pour un pays, le payer depuis votre solde et l'installer avec un QR code.",
+            "icon": "smartphone",
+            "status": "disponible",
+            "marque": false
+        },
+        {
+            "id": "mobile-money",
+            "name": "Mobile Money",
+            "description": "Recharger votre solde depuis votre compte Mobile Money, après validation sur votre téléphone.",
+            "icon": "phone",
+            "status": "disponible",
+            "marque": false
+        },
+        {
+            "id": "western-union",
+            "name": "Western Union",
+            "description": "Recevoir de l'argent envoyé par Western Union.",
+            "icon": "arrow-down",
+            "status": "bientot",
+            "marque": true
+        },
+        {
+            "id": "ria",
+            "name": "Ria",
+            "description": "Recevoir de l'argent envoyé par Ria.",
+            "icon": "arrow-down",
+            "status": "bientot",
+            "marque": true
+        },
+        {
+            "id": "paiement-nfc-bague",
+            "name": "Paiement NFC par bague",
+            "description": "Payer sans contact avec une bague NFC.",
+            "icon": "nfc",
+            "status": "bientot",
+            "marque": false
+        },
+        {
+            "id": "boutique-en-ligne",
+            "name": "Boutique en ligne",
+            "description": "Acheter des produits depuis l'application.",
+            "icon": "store",
+            "status": "bientot",
+            "marque": false
+        },
+        {
+            "id": "paiement-netflix",
+            "name": "Paiement Netflix",
+            "description": "Régler votre abonnement Netflix depuis votre solde.",
+            "icon": "play",
+            "status": "bientot",
+            "marque": true
+        },
+        {
+            "id": "reabonnement-tv",
+            "name": "Réabonnement TV",
+            "description": "Renouveler votre abonnement de télévision.",
+            "icon": "tv",
+            "status": "bientot",
+            "marque": false
+        },
+        {
+            "id": "paypal",
+            "name": "PayPal",
+            "description": "Utiliser PayPal avec votre solde KinPay Cash.",
+            "icon": "repeat",
+            "status": "bientot",
+            "marque": true
+        },
+        {
+            "id": "integration-ecoles",
+            "name": "Intégration pour les écoles",
+            "description": "Pointage des élèves par lecture de la veine de la paume, relié à KinPay Cash.",
+            "icon": "school",
+            "status": "bientot",
+            "marque": false
+        },
+        {
+            "id": "et-bien-plus-encore",
+            "name": "Et bien plus encore",
+            "description": "D'autres services s'ajouteront à cette liste quand ils seront prêts.",
+            "icon": "plus",
+            "status": "bientot",
+            "marque": false
+        }
+    ]
+}
