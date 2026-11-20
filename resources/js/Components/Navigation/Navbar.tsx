@@ -147,13 +147,13 @@ export default function Navbar() {
                         {languageOpen && (
                             <div className="absolute right-0 top-full mt-2 w-40 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-lg text-[#0646D8]">
 
-                                <button className="block w-full px-4 py-2 text-left hover:bg-gray-50">
+                                <a href="https://cps.kinpaycash.com/login" className="block w-full px-4 py-2 text-left hover:bg-gray-50">
                                     Se connecter
-                                </button>
+                                </a>
 
-                                <button className="block w-full px-4 pb-2 text-left hover:bg-gray-50">
+                                <a href="https://cps.kinpaycash.com/inscription" className="block w-full px-4 pb-2 text-left hover:bg-gray-50">
                                     Créer un compte
-                                </button>
+                                </a>
 
                                 {/* <button className="block w-full px-4 pb-2 text-left hover:bg-gray-50">
                                     Lingala
